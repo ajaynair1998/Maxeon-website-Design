@@ -6,6 +6,11 @@ import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { Grid } from "@mui/material";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import NavigationIcon from "@mui/icons-material/Navigation";
 
 let theme = createTheme({
   palette: {
@@ -20,7 +25,23 @@ let theme = createTheme({
   },
 });
 
-export default function Home() {
+theme.typography.h1 = {
+  "@media (max-width:2000px)": {
+    fontSize: "8rem",
+  },
+  "@media (max-width:1200px)": {
+    fontSize: "8rem",
+  },
+  "@media (max-width:600px)": {
+    fontSize: "4rem",
+  },
+
+  // [theme.breakpoints.down("xs")]: {
+  //   fontSize: "100px",
+  // },
+};
+
+function Home(props) {
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -52,8 +73,44 @@ export default function Home() {
           >
             <Navbar />
           </Grid>
+          <Grid
+            sx={{
+              position: "absolute",
+              bottom: "5vh",
+              right: "5vw",
+              zIndex: "10rem",
+            }}
+          >
+            <Fab color="primary" aria-label="add">
+              <AddIcon />
+            </Fab>
+          </Grid>
+          <Box
+            sx={{
+              top: "7rem",
+              display: "flex",
+              position: "absolute",
+              marginLeft: "15vh",
+              maxWidth: "100vh",
+            }}
+          >
+            <Box md={5} xs={3} lg={5}>
+              <Typography
+                variant="h1"
+                sx={{
+                  maxWidth: "40%",
+                  color: "primary.main",
+                  justifySelf: "flex-start",
+                }}
+              >
+                where words fail, music speaks
+              </Typography>
+            </Box>
+          </Box>
         </main>
       </div>
     </ThemeProvider>
   );
 }
+
+export default Home;

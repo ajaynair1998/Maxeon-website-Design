@@ -170,7 +170,7 @@ export default function PrimarySearchAppBar() {
             edge="start"
             aria-label="open drawer"
             sx={{ mr: 2 }}
-            sx={{ color: "primary.main" }}
+            sx={{ color: "primary.main", display: { md: "none" } }}
           >
             <MenuIcon />
           </IconButton>
@@ -179,7 +179,7 @@ export default function PrimarySearchAppBar() {
             noWrap
             component="div"
             color="primary.main"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "block", sm: "block" } }}
           >
             <b>Maxeon</b>
           </Typography>
@@ -244,7 +244,7 @@ export default function PrimarySearchAppBar() {
               <Typography>Login</Typography>
             </Button>
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "none", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="show more"
