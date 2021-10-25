@@ -32,8 +32,11 @@ theme.typography.h1 = {
   "@media (max-width:1200px)": {
     fontSize: "8rem",
   },
-  "@media (max-width:600px)": {
-    fontSize: "4rem",
+  "@media (max-width:766px)": {
+    fontSize: "5rem",
+  },
+  "@media (max-height:766px)": {
+    fontSize: "5rem",
   },
 
   // [theme.breakpoints.down("xs")]: {
@@ -90,7 +93,7 @@ function Home(props) {
               top: "7rem",
               display: "flex",
               position: "absolute",
-              marginLeft: "15vh",
+              marginLeft: "10vh",
               maxWidth: "100vh",
             }}
           >
