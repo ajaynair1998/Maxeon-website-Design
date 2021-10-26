@@ -100,7 +100,7 @@ function Home(props) {
           <Grow
             in={chatBoxState}
             style={{ transformOrigin: "0 0 0" }}
-            {...(chatBoxState ? { timeout: 500 } : {})}
+            {...(chatBoxState ? { timeout: 1000 } : {})}
           >
             <Grid
               sx={{
@@ -130,7 +130,7 @@ function Home(props) {
           <Grow
             in={!chatBoxState}
             style={{ transformOrigin: "0 0 0" }}
-            {...(chatBoxState ? { timeout: 500 } : {})}
+            {...(chatBoxState ? { timeout: 1000 } : {})}
           >
             <Grid
               sx={{
@@ -156,11 +156,15 @@ function Home(props) {
             </Grid>
           </Grow>
 
-          <Collapse in={chatBoxState}>
+          <Grow
+            in={chatBoxState}
+            style={{ transformOrigin: "0 0 50%" }}
+            {...(chatBoxState ? { timeout: 1000 } : {})}
+          >
             <Box
               sx={{
                 position: "fixed",
-                bottom: "13vh",
+                bottom: "15vh",
                 right: "5vw",
                 zIndex: "50",
                 width: "400px",
@@ -170,7 +174,7 @@ function Home(props) {
                 <Chats />
               </Grid>
             </Box>
-          </Collapse>
+          </Grow>
           <Box
             sx={{
               top: "7rem",
