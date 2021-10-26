@@ -6,15 +6,33 @@ import { Divider } from "@mui/material";
 import { Button } from "@mui/material";
 import Input from "@mui/material/Input";
 import TypingAnimation from "../TypingAnimation/TypingAnimation";
+import axios from "axios";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 
+let simulateTyping = new Promise(async function (resolve, reject) {
+  try {
+    let randomText = await axios.get("https://api.adviceslip.com/advice");
+    setTimeout(() => resolve(randomText.data.slip.advice), 3000);
+  } catch (err) {
+    reject();
+  }
+});
+
 export default function Chats(props) {
   let [isChatting, setChatting] = useState(false);
 
+  useEffect(async () => {
+    try {
+      let randomData = await simulateTyping;
+      console.log(randomData);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
   return (
     <Grid item xs={12}>
       <Box>
@@ -34,18 +52,18 @@ export default function Chats(props) {
         </Box>
         {isChatting && (
           <Box>
-            <div class="chat-container">
-              <ul class="chat-box chatContainerScroll">
-                <li class="chat-right">
-                  <div class="chat-text">
+            <div className="chat-container">
+              <ul className="chat-box chatContainerScroll">
+                <li className="chat-right">
+                  <div className="chat-text">
                     <Typography variant="subtitle2">
                       Hi, Russell I need more information about Developer Plan.
                     </Typography>
                   </div>
                 </li>
-                <li class="chat-left">
+                <li className="chat-left">
                   <span className="avatar-icon"></span>
-                  <div class="chat-text">
+                  <div className="chat-text">
                     <Typography variant="subtitle2">
                       Hello, I'm Russell. How can I help you today?
                     </Typography>
