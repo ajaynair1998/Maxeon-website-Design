@@ -54,7 +54,7 @@ li.chat-right > .chat-text::before {
   right: 0px;
   border-color: transparent #4c5aa1 transparent transparent;
   left: inherit;
-  top: 62px;
+  top: 42px;
 }
 
 li.chat-left {
@@ -106,6 +106,7 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 1rem;
 }
 
 .powered-by-image {
