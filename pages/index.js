@@ -6,11 +6,16 @@ import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { Grid } from "@mui/material";
+import { Container } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import Grow from "@mui/material/Grow";
+import Collapse from "@mui/material/Collapse";
+import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
 
 let theme = createTheme({
   palette: {
@@ -18,6 +23,7 @@ let theme = createTheme({
     primary: {
       main: "#fff",
       dark: "#b2b2b2",
+      blue: "#7F8AC5",
     },
     text: {
       primary: "#fff",
@@ -43,8 +49,26 @@ theme.typography.h1 = {
   //   fontSize: "100px",
   // },
 };
+const icon = (
+  <Paper sx={{ m: 1 }} elevation={4}>
+    <Box component="svg" sx={{ width: 100, height: 100 }}>
+      <Box
+        component="polygon"
+        sx={{
+          fill: (theme) => theme.palette.common.white,
+          stroke: (theme) => theme.palette.divider,
+          strokeWidth: 1,
+        }}
+        points="0,100 50,00, 100,100"
+      />
+    </Box>
+  </Paper>
+);
 
 function Home(props) {
+  let [chatBoxState, changeStateChatBox] = useState(false);
+  let [conversationStarted, changeStateConversation] = useState(false);
+
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -76,18 +100,97 @@ function Home(props) {
           >
             <Navbar />
           </Grid>
-          <Grid
-            sx={{
-              position: "absolute",
-              bottom: "5vh",
-              right: "5vw",
-              zIndex: "10rem",
-            }}
+          <Grow
+            in={chatBoxState}
+            style={{ transformOrigin: "0 0 0" }}
+            {...(chatBoxState ? { timeout: 500 } : {})}
           >
-            <Fab color="primary" aria-label="add">
-              <AddIcon />
-            </Fab>
-          </Grid>
+            <Grid
+              sx={{
+                position: "fixed",
+                bottom: "5vh",
+                right: "5vw",
+                zIndex: "10rem",
+              }}
+            >
+              <Fab
+                color="primary"
+                aria-label="add"
+                onClick={() => {
+                  changeStateChatBox(false);
+                }}
+              >
+                {/* <img
+                  src="./icons/SparrowBird.png"
+                  height="30px"
+                  width="auto"
+                ></img> */}
+                <CloseIcon />
+              </Fab>
+            </Grid>
+          </Grow>
+
+          <Grow
+            in={!chatBoxState}
+            style={{ transformOrigin: "0 0 0" }}
+            {...(chatBoxState ? { timeout: 500 } : {})}
+          >
+            <Grid
+              sx={{
+                position: "fixed",
+                bottom: "5vh",
+                right: "5vw",
+                zIndex: "10rem",
+              }}
+            >
+              <Fab
+                color="primary"
+                aria-label="add"
+                onClick={() => {
+                  changeStateChatBox(true);
+                }}
+              >
+                <img
+                  src="./icons/SparrowBird.png"
+                  height="30px"
+                  width="auto"
+                ></img>
+              </Fab>
+            </Grid>
+          </Grow>
+
+          <Collapse in={chatBoxState}>
+            <Box
+              sx={{
+                position: "fixed",
+                bottom: "25vh",
+                right: "5vw",
+                zIndex: "11rem",
+                width: "30vw",
+              }}
+            >
+              <Grid sx={{ bgcolor: "primary.main", borderRadius: "5px" }} p={1}>
+                <Grid item xs={12}>
+                  <Box>
+                    <Box
+                      sx={{
+                        bgcolor: "primary.blue",
+                        p: "1rem",
+                        pl: "2rem",
+                        color: "primary.main",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      <Typography variant="h6">Hi There</Typography>
+                      <Typography variant="subtitle2">
+                        The team usually replies in a few minutes
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </Collapse>
           <Box
             sx={{
               top: "7rem",
