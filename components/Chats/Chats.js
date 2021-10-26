@@ -5,6 +5,7 @@ import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 import { Button } from "@mui/material";
 import Input from "@mui/material/Input";
+import TypingAnimation from "../TypingAnimation/TypingAnimation";
 
 import { useState } from "react";
 
@@ -50,6 +51,7 @@ export default function Chats(props) {
                     </Typography>
                   </div>
                 </li>
+                <TypingAnimation />
               </ul>
             </div>
             <div className="powered-by-container">
