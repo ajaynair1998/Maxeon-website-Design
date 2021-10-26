@@ -13,6 +13,8 @@ import { useState, useEffect, useRef } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 
+let counter = 1;
+
 let simulateTyping = async () => {
   let delay = new Promise(async function (resolve, reject) {
     try {
@@ -43,18 +45,20 @@ function History(props) {
       {props.chats.map((item) => {
         if (item.source === "server") {
           return (
-            <li className="chat-right">
+            <li className="chat-right" key={item.id}>
               <div className="chat-text">
-                <Typography variant="subtitle2">{item.message}</Typography>
+                <Typography variant="subtitle2" paragraph>
+                  {item.message}
+                </Typography>
               </div>
             </li>
           );
         } else {
           return (
-            <li className="chat-left">
+            <li className="chat-left" key={item.id}>
               <span className="avatar-icon"></span>
               <div className="chat-text">
-                <Typography variant="subtitle2" sx={{ maxWidth: "70%" }}>
+                <Typography variant="subtitle2" paragraph>
                   {item.message}
                 </Typography>
               </div>
@@ -78,7 +82,11 @@ export default function Chats(props) {
   let [trigger, triggerFetch] = useState(true);
 
   const replyToUser = () => {
-    setChatHistory([...history, { source: "user", message: userMessage }]);
+    setChatHistory([
+      ...history,
+      { source: "user", message: userMessage, id: counter++ },
+    ]);
+
     setTyping(true);
     triggerFetch(!trigger);
     setUserMessage("");
@@ -87,7 +95,10 @@ export default function Chats(props) {
   useEffect(async () => {
     try {
       let randomData = await simulateTyping();
-      setChatHistory([...history, { source: "server", message: randomData }]);
+      setChatHistory([
+        ...history,
+        { source: "server", message: randomData, id: counter++ },
+      ]);
       //   updateScroll();
       console.log(history);
       setTyping(false);
