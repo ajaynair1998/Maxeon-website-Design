@@ -39,7 +39,7 @@ li .chat-text:before {
   position: absolute;
   width: 0;
   height: 0;
-  top: 10px;
+
   left: -20px;
   border: 10px solid;
   border-color: transparent #ffffff transparent transparent;
@@ -55,7 +55,7 @@ li.chat-right > .chat-text::before {
   right: 0px;
   border-color: transparent #4c5aa1 transparent transparent;
   left: inherit;
-  top: 42px;
+  bottom: -7px;
 }
 
 li.chat-left {
@@ -73,9 +73,9 @@ li.chat-left > .chat-text {
   width: 70%;
 }
 
-li.chat-left > .chat-text:before {
+li.chat-left > .chat-text::before {
   border-color: transparent transparent transparent #ecf1fb;
-  top: 44px;
+  bottom: -7px;
   left: 0px;
 }
 ul {

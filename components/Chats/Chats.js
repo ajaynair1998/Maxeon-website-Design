@@ -8,31 +8,91 @@ import Input from "@mui/material/Input";
 import TypingAnimation from "../TypingAnimation/TypingAnimation";
 import axios from "axios";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 
-let simulateTyping = new Promise(async function (resolve, reject) {
+function updateScroll() {
   try {
-    let randomText = await axios.get("https://api.adviceslip.com/advice");
-    setTimeout(() => resolve(randomText.data.slip.advice), 3000);
+    let element = document.getElementById("chat-box");
+    element.scrollTop = element?.scrollHeight;
   } catch (err) {
-    reject();
+    // do nothing
   }
-});
+}
+
+let simulateTyping = async () => {
+  let delay = new Promise(async function (resolve, reject) {
+    try {
+      let randomText = await axios.get("https://api.adviceslip.com/advice");
+      setTimeout(() => resolve(randomText.data.slip.advice), 3000);
+    } catch (err) {
+      reject();
+    }
+  });
+
+  let simulatedResponse = await delay;
+  return simulatedResponse;
+};
+
+function History(props) {
+  return (
+    <ul className="chat-box chatContainerScroll" id="chat-box">
+      {props.chats.map((item) => {
+        if (item.source === "server") {
+          return (
+            <li className="chat-right">
+              <div className="chat-text">
+                <Typography variant="subtitle2">{item.message}</Typography>
+              </div>
+            </li>
+          );
+        } else {
+          return (
+            <li className="chat-left">
+              <span className="avatar-icon"></span>
+              <div className="chat-text">
+                <Typography variant="subtitle2" sx={{ maxWidth: "70%" }}>
+                  {item.message}
+                </Typography>
+              </div>
+            </li>
+          );
+        }
+      })}
+
+      {props.isTyping && <TypingAnimation />}
+    </ul>
+  );
+}
 
 export default function Chats(props) {
   let [isChatting, setChatting] = useState(false);
+  let [userMessage, setUserMessage] = useState("");
+  let [history, setChatHistory] = useState([]);
+  let [isTyping, setTyping] = useState(false);
+  let [trigger, triggerFetch] = useState(true);
+
+  const replyToUser = () => {
+    setChatHistory([...history, { source: "user", message: userMessage }]);
+    setTyping(true);
+    triggerFetch(!trigger);
+    setUserMessage("");
+  };
 
   useEffect(async () => {
     try {
-      let randomData = await simulateTyping;
-      console.log(randomData);
+      let randomData = await simulateTyping();
+      setChatHistory([...history, { source: "server", message: randomData }]);
+      //   updateScroll();
+      console.log(history);
+      setTyping(false);
+      //   console.log(randomData);
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [trigger]);
   return (
     <Grid item xs={12}>
       <Box>
@@ -53,24 +113,7 @@ export default function Chats(props) {
         {isChatting && (
           <Box>
             <div className="chat-container">
-              <ul className="chat-box chatContainerScroll">
-                <li className="chat-right">
-                  <div className="chat-text">
-                    <Typography variant="subtitle2">
-                      Hi, Russell I need more information about Developer Plan.
-                    </Typography>
-                  </div>
-                </li>
-                <li className="chat-left">
-                  <span className="avatar-icon"></span>
-                  <div className="chat-text">
-                    <Typography variant="subtitle2">
-                      Hello, I'm Russell. How can I help you today?
-                    </Typography>
-                  </div>
-                </li>
-                <TypingAnimation />
-              </ul>
+              <History chats={history} isTyping={isTyping} />
             </div>
             <div className="powered-by-container">
               <div className="powered-by">
@@ -95,8 +138,11 @@ export default function Chats(props) {
                 placeholder="Write a reply"
                 sx={{ color: "primary.dark" }}
                 disableUnderline
+                onChange={(e) => setUserMessage(e.target.value)}
+                value={userMessage}
+                multiline
               />
-              <Button variant="text">
+              <Button variant="text" onClick={replyToUser}>
                 <SendIcon sx={{ color: "#4c5aa1" }} />
               </Button>
             </Box>
