@@ -122,3 +122,14 @@ ul {
   align-items: center;
   color: #6f7177;
 }
+
+@media screen and (max-width: 766px) {
+  .chats-container-top {
+    position: fixed;
+    margin: auto;
+    top: 5vh;
+
+    width: 90%;
+    height: 60vh;
+  }
+}

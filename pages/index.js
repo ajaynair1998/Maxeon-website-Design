@@ -162,6 +162,7 @@ function Home(props) {
             {...(chatBoxState ? { timeout: 1000 } : {})}
           >
             <Box
+              className="chats-container-top"
               sx={{
                 position: "fixed",
                 bottom: "15vh",
