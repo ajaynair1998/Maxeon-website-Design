@@ -13,15 +13,6 @@ import { useState, useEffect, useRef } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 
-function updateScroll() {
-  try {
-    let element = document.getElementById("chat-box");
-    element.scrollTop = element?.scrollHeight;
-  } catch (err) {
-    // do nothing
-  }
-}
-
 let simulateTyping = async () => {
   let delay = new Promise(async function (resolve, reject) {
     try {
@@ -37,6 +28,16 @@ let simulateTyping = async () => {
 };
 
 function History(props) {
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [props.chats]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <ul className="chat-box chatContainerScroll" id="chat-box">
       {props.chats.map((item) => {
@@ -63,6 +64,8 @@ function History(props) {
       })}
 
       {props.isTyping && <TypingAnimation />}
+
+      <div ref={messagesEndRef}></div>
     </ul>
   );
 }
