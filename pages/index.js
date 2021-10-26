@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Navbar from "../components/Navbar/Navbar";
+import Chats from "../components/Chats/Chats";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box } from "@mui/system";
@@ -23,7 +24,8 @@ let theme = createTheme({
     primary: {
       main: "#fff",
       dark: "#b2b2b2",
-      blue: "#7F8AC5",
+      lightBlue: "#7F8AC5",
+      blue: "#4C5AA1",
     },
     text: {
       primary: "#fff",
@@ -165,29 +167,12 @@ function Home(props) {
                 position: "fixed",
                 bottom: "25vh",
                 right: "5vw",
-                zIndex: "11rem",
-                width: "30vw",
+                zIndex: "50",
+                width: "30rem",
               }}
             >
               <Grid sx={{ bgcolor: "primary.main", borderRadius: "5px" }} p={1}>
-                <Grid item xs={12}>
-                  <Box>
-                    <Box
-                      sx={{
-                        bgcolor: "primary.blue",
-                        p: "1rem",
-                        pl: "2rem",
-                        color: "primary.main",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      <Typography variant="h6">Hi There</Typography>
-                      <Typography variant="subtitle2">
-                        The team usually replies in a few minutes
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Grid>
+                <Chats />
               </Grid>
             </Box>
           </Collapse>
@@ -198,6 +183,7 @@ function Home(props) {
               position: "absolute",
               marginLeft: "10vh",
               maxWidth: "100vh",
+              zIndex: "-1",
             }}
           >
             <Box md={5} xs={3} lg={5}>
