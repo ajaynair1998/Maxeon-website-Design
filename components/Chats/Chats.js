@@ -2,6 +2,10 @@ import React from "react";
 import { Grid } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { Divider } from "@mui/material";
+import { Button } from "@mui/material";
+import Input from "@mui/material/Input";
+import SendIcon from "@mui/icons-material/Send";
 
 export default function Chats(props) {
   return (
@@ -21,7 +25,7 @@ export default function Chats(props) {
             The team usually replies in a few minutes
           </Typography>
         </Box>
-        <Box p={1}>
+        <Box>
           <div class="chat-container">
             <ul class="chat-box chatContainerScroll">
               <li class="chat-right">
@@ -50,6 +54,23 @@ export default function Chats(props) {
               <Typography variant="caption">we run on surveysparrow</Typography>
             </div>
           </div>
+          <Divider />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              mt: "0.5rem",
+            }}
+          >
+            <Input
+              placeholder="Write a reply"
+              sx={{ color: "primary.dark" }}
+              disableUnderline
+            />
+            <Button variant="text">
+              <SendIcon sx={{ color: "#4c5aa1" }} />
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Grid>
