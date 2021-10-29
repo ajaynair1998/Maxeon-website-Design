@@ -183,40 +183,15 @@ export default function PrimarySearchAppBar() {
           >
             <b>Maxeon</b>
           </Typography>
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search> */}
+
           <Box sx={{ flexGrow: 1 }} />
           <Box
             sx={{ display: { xs: "none", md: "flex", alignItems: "center" } }}
           >
-            {/* <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton> */}
             <Button variant="text">
               <Typography>Products</Typography>
             </Button>
-            {/* <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
+
             <Button variant="text">
               <Typography>Features</Typography>
             </Button>
@@ -226,17 +201,7 @@ export default function PrimarySearchAppBar() {
             <Button variant="text">
               <Typography>pricing</Typography>
             </Button>
-            {/* <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              sx={{ color: "primary.main" }}
-            >
-              <AccountCircle />
-            </IconButton> */}
+
             <Button
               variant="contained"
               sx={{ borderRadius: "30px", transform: "scale(0.7)" }}
