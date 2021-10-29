@@ -99,10 +99,8 @@ export default function Chats(props) {
         ...history,
         { source: "server", message: randomData, id: counter++ },
       ]);
-      //   updateScroll();
-      console.log(history);
+
       setTyping(false);
-      //   console.log(randomData);
     } catch (err) {
       console.log(err);
     }

@@ -77,6 +77,7 @@ function Home(props) {
         {/*---------------------------------------  */}
         <main>
           <Grid
+            className="background-image-container"
             container
             sx={{
               position: "sticky",
@@ -88,7 +89,8 @@ function Home(props) {
               backgroundSize: "cover",
             }}
           ></Grid>
-          <Grid
+          <Box
+            className="navbar-container"
             sx={{
               position: "sticky",
               mt: "-100vh",
@@ -96,13 +98,14 @@ function Home(props) {
             }}
           >
             <Navbar />
-          </Grid>
+          </Box>
           <Grow
             in={chatBoxState}
             style={{ transformOrigin: "0 0 0" }}
             {...(chatBoxState ? { timeout: 1000 } : {})}
           >
             <Grid
+              className="action-button-for-chat-open"
               sx={{
                 position: "fixed",
                 bottom: "5vh",
